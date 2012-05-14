@@ -24,7 +24,7 @@ set :default_environment, {
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
 namespace :deploy do
-  task :restart_nginx do
+  task :restart_nginx, roles: :app do
     sudo "service nginx restart"
   end
 
