@@ -30,12 +30,12 @@ namespace :deploy do
   end
 
   desc "Create db"
-  task :create_db, :roles => :db, :only => { :primary => true } do
+  task :create_db, roles: :db, only: {primary: true} do
     rails_env = fetch(:rails_env, "production")
     run "cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} db:create"
   end
 
-  task :cold do # Overriding the default deploy:cold - http://stackoverflow.com/questions/1329778/dbschemaload-vs-dbmigrate-with-capistrano
+  task :cold do # Overriding the default deploy:cold (http://stackoverflow.com/questions/1329778/dbschemaload-vs-dbmigrate-with-capistrano)
     update
     create_db
     migrate
