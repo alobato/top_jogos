@@ -24,6 +24,17 @@ set :default_environment, {
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
 namespace :deploy do
+  # http://stackoverflow.com/questions/1329778/dbschemaload-vs-dbmigrate-with-capistrano
+  task :cold do # Overriding the default deploy:cold
+    update
+    create_db
+    migrate
+    start
+  end
+  task :create_db, :roles => :app do
+    run "cd #{current_path}; rake db:create"
+  end
+
   %w[start stop restart].each do |command|
     desc "#{command} unicorn server"
     task command, roles: :app, except: {no_release: true} do
