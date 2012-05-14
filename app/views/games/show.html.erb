@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<head><title>
+	<%= @game.name %>
+</title><link rel="stylesheet" type="text/css" href="css/stylesheet.css" /><meta name="keywords" content="<%= @game.meta %>" /><meta name="description" content="<%= @game.name %> - Top Jogos Online em Flash" /></head>
+
+<body>
+
+<div id="container">
+
+    
+<div id="header">
+    <div id="logo"><a href="default.aspx" title="Top Jogos"><img src="imagens/logo.gif" alt="Top Jogos" /></a></div>
+    <div id="banner">
+    <a href="#" onclick="javascript:this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.topjogos.com.br');urchinTracker('/outgoing/orkut');">Defina como sua página inicial</a><br /><a href="javascript:window.external.AddFavorite(location.href,document.title)" onclick="javascript:urchinTracker('/outgoing/favoritos');">Adicione nos seus Favoritos</a><br /><a href="http://www.orkut.com/CommunityJoin.aspx?cmm=42315443" onclick="javascript:urchinTracker('/outgoing/orkut');">Comunidade do Orkut</a>
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">
+_uacct = "UA-270354-2";
+urchinTracker();
+</script>
+</div>
+</div>
+
+    <div id="content">
+
+<%= render 'shared/categories_menu' %>
+
+        <div id="main">
+            
+<div id="breadcrumb">
+    <a href="default.aspx" title="Top Jogos">Início</a> &gt; <a href="<%= @game.category.cached_slug %>.aspx" title="<%= @game.category.name %>"><%= @game.category.name %></a> &gt; <strong><%= @game.name %></strong>
+</div>
+
+<div id="titulo">
+    <h1><%= @game.name %></h1>
+    <p><%= @game.description %></p>
+</div>
+
+<div id="jogo">
+    <h2>Jogo em flash</h2>
+<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="<%= @game.size[:w] %>" height="<%= @game.size[:h] %>">
+<param name="movie" value="<%= @game.url %>">
+<param name="quality" value="high">
+<embed src="<%= @game.url %>" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="<%= @game.size[:w] %>" height="<%= @game.size[:h] %>"></embed>
+</object>
+    
+</div>
+
+        </div>
+        
+    </div>
+    
+    <div id="footer">
+        <img src="/imagens/faletop.gif" />
+    </div>
+
+</div>
+    
+</body>
+
+</html>

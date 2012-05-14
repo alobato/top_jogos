@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<head><title>
+	<%= @category.name %> - Top Jogos Online em Flash
+</title><link rel="stylesheet" type="text/css" href="css/stylesheet.css" /><meta name="keywords" content="jogos da barbie, jogo da barbie, jogos online, jogos em flash, jogos gratis, jogos on line, jogo online da barbie, jogo barbie, site de jogo barbie, jogo on line da barbie, jogo barbie gratis, jogo barbie online" /><meta name="description" content="Jogos da Barbie - Top Jogos Online em Flash" /></head>
+
+<body>
+
+<div id="container">
+
+    
+<div id="header">
+    <div id="logo"><a href="default.aspx" title="Top Jogos"><img src="imagens/logo.gif" alt="Top Jogos" /></a></div>
+    <div id="banner">
+    <a href="#" onclick="javascript:this.style.behavior='url(#default#homepage)';this.setHomePage('http://www.topjogos.com.br');urchinTracker('/outgoing/orkut');">Defina como sua página inicial</a><br /><a href="javascript:window.external.AddFavorite(location.href,document.title)" onclick="javascript:urchinTracker('/outgoing/favoritos');">Adicione nos seus Favoritos</a><br /><a href="http://www.orkut.com/CommunityJoin.aspx?cmm=42315443" onclick="javascript:urchinTracker('/outgoing/orkut');">Comunidade do Orkut</a>
+    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">
+_uacct = "UA-270354-2";
+urchinTracker();
+</script>
+</div>
+</div>
+
+    <div id="content">
+
+<%= render 'shared/categories_menu' %>
+
+        <div id="main">
+
+            
+<div id="breadcrumb">
+    <a href="default.aspx" title="Top Jogos">Início</a> &gt; <b><%= @category.name %></b>
+</div>
+
+<div id="titulo">
+    <h1><%= @category.name %></h1>
+    <p></p>
+</div>
+
+<div id="listajogos">
+    <h2>Escolha o jogo em flash</h2>
+
+<% @games.each do |game| %>
+
+    <div class="item">
+        <a href="<%= game.cached_slug %>.aspx"><img src="imagens/icones/<%= game.cached_slug %>.gif" alt="<%= game.name %>" /></a><a href="<%= game.cached_slug %>.aspx"><%= game.name %></a><br /><span class="desc"><%= game.short_description %></span>
+    </div>
+
+<% end %>
+
+</div>
+
+        </div>
+        
+    </div>
+    
+    <div id="footer">
+        <img src="/imagens/faletop.gif" />
+    </div>
+
+</div>
+    
+</body>
+
+</html>

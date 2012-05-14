@@ -1,0 +1,12 @@
+<div id="navigation">
+
+        <ul>
+          <% if !current_page?(root_path) && !current_page?('/default.aspx')  %>
+            <li><a href="default.aspx" title="Top Jogos">Início</a></li>
+          <% end %>
+<% Category.all.each do |category| %>
+        <li><a href="<%= category.cached_slug %>.aspx" title="<%= category.name %>"><%= category.name %></a></li>
+<% end %>
+        </ul>
+    
+</div>
