@@ -24,6 +24,7 @@ set :default_environment, {
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
 namespace :deploy do
+  desc "Restart Nginx server"
   task :restart_nginx, roles: :app do
     sudo "service nginx restart"
   end
@@ -34,6 +35,8 @@ namespace :deploy do
     migrate
     start
   end
+
+  desc "Create db"
   task :create_db, :roles => :db, :only => { :primary => true } do
     rails_env = fetch(:rails_env, "production")
     run "cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} db:create"
