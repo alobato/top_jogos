@@ -31,8 +31,17 @@ namespace :deploy do
     migrate
     start
   end
-  task :create_db, :roles => :app do
-    run "cd #{current_path}; rake db:create"
+  task :create_db, :roles => :db, :only => { :primary => true } do
+    rake = fetch(:rake, "rake")
+    rails_env = fetch(:rails_env, "production")
+    migrate_env = fetch(:migrate_env, "")
+    migrate_target = fetch(:migrate_target, :latest)
+    directory = case migrate_target.to_sym
+      when :current then current_path
+      when :latest  then latest_release
+      else raise ArgumentError, "unknown migration target #{migrate_target.inspect}"
+      end
+    run "cd #{directory} && #{rake} RAILS_ENV=#{rails_env} #{migrate_env} db:create"
   end
 
   %w[start stop restart].each do |command|
