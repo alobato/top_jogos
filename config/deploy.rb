@@ -24,24 +24,15 @@ set :default_environment, {
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
 namespace :deploy do
-  # http://stackoverflow.com/questions/1329778/dbschemaload-vs-dbmigrate-with-capistrano
-  task :cold do # Overriding the default deploy:cold
+  task :cold do # Overriding the default deploy:cold - http://stackoverflow.com/questions/1329778/dbschemaload-vs-dbmigrate-with-capistrano
     update
     create_db
     migrate
     start
   end
   task :create_db, :roles => :db, :only => { :primary => true } do
-    rake = fetch(:rake, "rake")
     rails_env = fetch(:rails_env, "production")
-    migrate_env = fetch(:migrate_env, "")
-    migrate_target = fetch(:migrate_target, :latest)
-    directory = case migrate_target.to_sym
-      when :current then current_path
-      when :latest  then latest_release
-      else raise ArgumentError, "unknown migration target #{migrate_target.inspect}"
-      end
-    run "cd #{directory} && #{rake} RAILS_ENV=#{rails_env} #{migrate_env} db:create"
+    run "cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} db:create"
   end
 
   %w[start stop restart].each do |command|
