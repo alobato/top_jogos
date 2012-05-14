@@ -24,6 +24,10 @@ set :default_environment, {
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
 
 namespace :deploy do
+  task :restart_nginx do
+    sudo "service nginx restart"
+  end
+
   task :cold do # Overriding the default deploy:cold - http://stackoverflow.com/questions/1329778/dbschemaload-vs-dbmigrate-with-capistrano
     update
     create_db
